@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
-
+import './App.css';
 function App() {
   const [formData, setFormData] = useState({
     ownerName: "",
