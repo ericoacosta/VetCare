@@ -1,38 +1,94 @@
+/* App.css */
+
+/* 1. Global Reset & Background */
 .App {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); /* Soft Pastel Gradient */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 2. Glassmorphism Card Container */
+.App-header {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px); /* This creates the frosted glass effect */
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 3. Typography */
+h1 {
+  color: #4a4a4a;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+label {
+  display: block;
+  text-align: left;
+  margin: 15px 0 5px 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* 4. Form & Inputs */
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 12px;
+}
+
+input, select {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #a8edea;
+  box-shadow: 0 0 8px rgba(168, 237, 234, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 5. The "Confirm" Button */
+button {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background: #6c5ce7;
   color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background: #5849c4;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:active {
+  transform: translateY(0);
 }
