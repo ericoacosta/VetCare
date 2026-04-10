@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Corrected path for public/image/vetbackground.jpg */
+  /* Fixed path for public/image/vetbackground.jpg */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                     url('/image/vetbackground.jpg'); 
   background-size: cover;
@@ -31,6 +31,7 @@ input, select {
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 8px;
+  font-family: inherit;
 }
 
 .primary-btn {
@@ -42,4 +43,5 @@ input, select {
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 10px;
 }
