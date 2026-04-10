@@ -22,79 +22,61 @@ export default function Dashboard() {
     else setReservations(data || []);
   }
 
-  // --- ACTIONS ---
-  const doAction = async (action, id) => {
-    if (!id) return alert("Missing ID—data parsing error.");
-    let error;
-
-    if (action === 'delete' && window.confirm("Delete this appointment?")) {
-      const result = await supabase.from('reservations').delete().eq('id', id);
-      error = result.error;
-    } else if (action === 'complete') {
-      const result = await supabase.from('reservations').update({ status: 'Completed' }).eq('id', id);
-      error = result.error;
-    } else if (action === 'time') {
-      const newDate = prompt("Enter new date (YYYY-MM-DD):");
-      if (newDate) {
-        const result = await supabase.from('reservations').update({ appointment_date: newDate }).eq('id', id);
-        error = result.error;
-      }
-    }
+  const handleAction = async (type, id) => {
+    if (!id) return alert("No Reservation ID found. Try refreshing.");
     
-    if (error) alert("Error: " + error.message);
-    else fetchReservations();
+    if (type === 'delete' && window.confirm("Delete this booking?")) {
+      await supabase.from('reservations').delete().eq('id', id);
+    } else if (type === 'complete') {
+      await supabase.from('reservations').update({ status: 'Completed' }).eq('id', id);
+    } else if (type === 'time') {
+      const date = prompt("Enter new date (YYYY-MM-DD):");
+      if (date) await supabase.from('reservations').update({ appointment_date: date }).eq('id', id);
+    }
+    fetchReservations();
   };
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-card">
-        <div className="dashboard-header">
-          <h2>Appointments Overview</h2>
-          <button className="logout-button" onClick={() => supabase.auth.signOut()}>Logout</button>
-        </div>
+    <div className="dashboard-wrapper">
+      <div className="dashboard-sidebar">
+        <div className="logo">🐾 VetCare</div>
+        <button className="logout-btn" onClick={() => supabase.auth.signOut()}>Logout</button>
+      </div>
 
-        <div className="appointment-grid">
+      <div className="dashboard-main">
+        <header>
+          <h1>Active Appointments</h1>
+          <p>Manage your upcoming pet visits</p>
+        </header>
+
+        <div className="canva-grid">
           {reservations.map((owner) => {
             const pet = owner.pets?.[0] || {};
             const res = pet.reservations?.[0] || {};
             
             return (
-              <div key={owner.id} className={`pet-card ${res.status === 'Completed' ? 'completed' : ''}`}>
-                
-                {/* Segment 1: Top (Status & Icon) */}
-                <div className="card-segment-top">
-                  <span className={`status-pill status-${res.status?.toLowerCase() || 'pending'}`}>
-                    {res.status || 'Pending'}
-                  </span>
-                  <div className="card-icon">🐾</div>
+              <div key={owner.id} className={`canva-card ${res.status === 'Completed' ? 'is-done' : ''}`}>
+                <div className="card-header">
+                  <span className="status-badge">{res.status || 'Pending'}</span>
+                  <span className="pet-icon">🐶</span>
                 </div>
-
-                {/* Segment 2: Mid (Pet & Owner Info) */}
-                <div className="card-segment-mid">
-                  <div className="mid-sub">PET DETAILS</div>
-                  <div className="mid-title">{pet.pet_name || "—"}</div>
-                  <div className="mid-sub" style={{margin:'5px 0 10px'}}>{pet.size || "—"} Pet</div>
-                  
-                  <div className="mid-sub">DATE</div>
-                  <div className="mid-title" style={{color:'#6c5ce7'}}>{res.appointment_date || "—"}</div>
-
-                  <div className="owner-info">
-                    Owner: <span>{owner.owner_name}</span><br/>
-                    Phone: <span>{owner.contact_no}</span>
+                
+                <div className="card-content">
+                  <h3 className="pet-name">{pet.pet_name || "New Patient"}</h3>
+                  <div className="info-group">
+                    <label>APPOINTMENT DATE</label>
+                    <div className="info-value date-text">{res.appointment_date || "TBD"}</div>
+                  </div>
+                  <div className="info-group">
+                    <label>OWNER</label>
+                    <div className="info-value">{owner.owner_name} • {owner.contact_no}</div>
                   </div>
                 </div>
 
-                {/* Segment 3: Bottom (Actions) - THESE CANNOT BE NOTHING */}
-                <div className="card-segment-bot">
-                  <button className="segment-btn btn-time" onClick={() => doAction('time', res.id)}>
-                    <span>📅</span> Time
-                  </button>
-                  <button className="segment-btn btn-complete" onClick={() => doAction('complete', res.id)}>
-                    <span>✅</span> Done
-                  </button>
-                  <button className="segment-btn btn-delete" onClick={() => doAction('delete', res.id)}>
-                    <span>🗑️</span> Delete
-                  </button>
+                <div className="card-footer-actions">
+                  <button className="btn-action time" onClick={() => handleAction('time', res.id)}>Time</button>
+                  <button className="btn-action done" onClick={() => handleAction('complete', res.id)}>Done</button>
+                  <button className="btn-action del" onClick={() => handleAction('delete', res.id)}>Delete</button>
                 </div>
               </div>
             );
