@@ -6,45 +6,74 @@ export default function Dashboard({ handleLogout }) {
   const [reservations, setReservations] = useState([]);
 
   const fetchReservations = async () => {
-    const { data, error } = await supabase.from('owners').select(`id, owner_name, contact_no, pets ( id, pet_name, size, reservations (id, appointment_date, status))`);
+    const { data, error } = await supabase
+      .from('owners')
+      .select(`
+        id, owner_name, contact_no, 
+        pets ( id, pet_name, size, 
+          reservations (id, appointment_date, status)
+        )
+      `);
     if (!error) setReservations(data);
   };
 
-  useEffect(() => { fetchReservations(); }, []);
+  useEffect(() => {
+    fetchReservations();
+  }, []);
 
   const handleAction = async (type, resId) => {
     if (!resId) return;
-    if (type === 'delete' && window.confirm("Delete?")) {
+    if (type === 'delete' && window.confirm("Delete this appointment?")) {
       await supabase.from('reservations').delete().eq('id', resId);
     } else if (type === 'complete') {
       await supabase.from('reservations').update({ status: 'Completed' }).eq('id', resId);
     } else if (type === 'time') {
-      const d = prompt("New Date (YYYY-MM-DD):");
-      if (d) await supabase.from('reservations').update({ appointment_date: d }).eq('id', resId);
+      const newDate = prompt("Enter new date (YYYY-MM-DD):");
+      if (newDate) await supabase.from('reservations').update({ appointment_date: newDate }).eq('id', resId);
     }
     fetchReservations();
   };
 
   return (
-    <div className="dashboard-wrapper">
-      <div className="dashboard-top-nav">
-        <h1>Staff Dashboard</h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-      </div>
+    <div className="dashboard-outer">
+      <nav className="canva-nav">
+        <div className="brand">🐾 VetCare<span>Staff</span></div>
+        <button className="logout-pill" onClick={handleLogout}>Sign Out</button>
+      </nav>
+
       <div className="canva-grid">
-        {reservations.map((owner, i) => {
+        {reservations.map((owner) => {
           const pet = owner.pets?.[0] || {};
           const res = pet.reservations?.[0] || {};
+          
           return (
-            <div key={i} className="canva-card">
-              <div className="status-badge pending">{res.status || 'Pending'}</div>
-              <h3 className="pet-name">🐶 {pet.pet_name}</h3>
-              <p><strong>Owner:</strong> {owner.owner_name}</p>
-              <p className="date-highlight">📅 {res.appointment_date}</p>
-              <div className="card-footer">
-                <button className="btn-action time" onClick={() => handleAction('time', res.id)}>Time</button>
-                <button className="btn-action done" onClick={() => handleAction('complete', res.id)}>Done</button>
-                <button className="btn-action del" onClick={() => handleAction('delete', res.id)}>Delete</button>
+            <div key={owner.id} className={`canva-card ${res.status === 'Completed' ? 'is-complete' : ''}`}>
+              <div className="card-top">
+                <span className={`status-label ${res.status?.toLowerCase() || 'pending'}`}>
+                  {res.status || 'Pending'}
+                </span>
+                <span className="pet-emoji">🐶</span>
+              </div>
+              
+              <div className="card-mid">
+                <h3 className="pet-name">{pet.pet_name || "New Patient"}</h3>
+                <div className="meta-tag">{pet.size}</div>
+                
+                <div className="info-block">
+                  <small>APPOINTMENT</small>
+                  <p className="date-text">📅 {res.appointment_date || "TBD"}</p>
+                </div>
+
+                <div className="info-block">
+                  <small>OWNER DETAILS</small>
+                  <p>{owner.owner_name} • {owner.contact_no}</p>
+                </div>
+              </div>
+
+              <div className="card-actions-row">
+                <button className="btn-action t-btn" onClick={() => handleAction('time', res.id)}>Time</button>
+                <button className="btn-action c-btn" onClick={() => handleAction('complete', res.id)}>Done</button>
+                <button className="btn-action d-btn" onClick={() => handleAction('delete', res.id)}>Delete</button>
               </div>
             </div>
           );
