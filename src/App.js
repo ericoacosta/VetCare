@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [, setSession] = useState(null); // The comma here solves the build error
+  const [, setSession] = useState(null); // Fixed the unused variable error
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
@@ -58,7 +58,14 @@ function App() {
 
   return (
     <div className="App">
-      {view === "booking" && <button className="corner-login-btn" onClick={() => setView("login")}>Staff Portal</button>}
+      {view === "booking" && (
+        <button className="corner-login-btn" 
+                style={{position: 'absolute', top: '20px', right: '20px', padding: '10px 20px', borderRadius: '50px', border: 'none', fontWeight: 'bold', cursor: 'pointer'}} 
+                onClick={() => setView("login")}>
+          Staff Portal
+        </button>
+      )}
+      
       <div className="App-header">
         {view === "login" && (
           <div className="glass-card">
@@ -67,11 +74,13 @@ function App() {
               <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
               <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
               <button type="submit" className="primary-btn">Sign In</button>
-              <button type="button" className="admin-link-btn" onClick={() => setView("booking")}>Cancel</button>
+              <button type="button" style={{background: 'none', border: 'none', marginTop: '10px', cursor: 'pointer', textDecoration: 'underline'}} onClick={() => setView("booking")}>Cancel</button>
             </form>
           </div>
         )}
+
         {view === "dashboard" && <Dashboard handleLogout={handleLogout} />}
+
         {view === "booking" && (
           <div className="glass-card">
             <h1>PawCare Booking</h1>
@@ -82,12 +91,12 @@ function App() {
               <input placeholder="Home Address" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} required />
               <input placeholder="Pet Name" value={formData.petName} onChange={(e) => setFormData({...formData, petName: e.target.value})} required />
               <select value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})}>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
+                <option value="small">Small Breed</option>
+                <option value="medium">Medium Breed</option>
+                <option value="large">Large Breed</option>
               </select>
               <input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} required />
-              <button type="submit" className="primary-btn">Book Now</button>
+              <button type="submit" className="primary-btn">Confirm Booking</button>
             </form>
           </div>
         )}
