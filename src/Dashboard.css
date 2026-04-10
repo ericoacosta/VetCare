@@ -1,99 +1,141 @@
-/* Dashboard.css - Canva Inspired */
-.dashboard-container {
-  padding: 40px 20px;
-  background-color: #f0f2f5;
-  min-height: 100vh;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+/* Dashboard.css - Canva Inspired Redesign */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --canva-purple: #7d2ae8;
+  --canva-light-purple: #f2ebfb;
+  --canva-gray: #f4f7f6;
+  --text-main: #0e1318;
+  --text-sub: #5e6d7c;
+  --danger: #ff4d4d;
+  --success: #00c07f;
 }
 
-.dash-header {
-  max-width: 1100px;
+.dashboard-outer {
+  background-color: var(--canva-gray);
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+}
+
+.canva-nav {
+  max-width: 1200px;
   margin: 0 auto 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.dash-header h1 { font-weight: 700; color: #1c1e21; margin: 0; }
+.brand { 
+  font-size: 1.5rem; 
+  font-weight: 800; 
+  letter-spacing: -0.5px;
+}
 
-.card-grid {
-  max-width: 1100px;
+.brand span { color: var(--canva-purple); }
+
+/* Grid Layout */
+.canva-grid {
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
 }
 
-.booking-card {
+/* Card Styling */
+.canva-card {
   background: #ffffff;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e4e6eb;
-  transition: transform 0.2s ease;
-}
-
-.booking-card:hover { transform: translateY(-4px); }
-
-.card-top {
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  flex-direction: column;
 }
 
-.status-badge {
-  background: #e7f3ff;
-  color: #1877f2;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.75rem;
+.canva-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.canva-card.is-complete {
+  opacity: 0.7;
+  background-color: #fafafa;
+}
+
+/* Status Labels */
+.status-label {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
-.card-info h3 { margin: 0 0 8px; color: #050505; font-size: 1.25rem; }
-.card-info p { margin: 4px 0; color: #65676b; font-size: 0.9rem; }
+.pending { background: #fff4e5; color: #b45309; }
+.completed { background: #e6fffa; color: #087f60; }
 
-.date-section {
-  margin-top: 15px;
-  padding: 12px;
-  background: #f7f8fa;
-  border-radius: 8px;
-  color: #1c1e21;
-  font-weight: 600;
+/* Content */
+.pet-name { 
+  font-size: 1.4rem; 
+  margin: 0; 
+  font-weight: 700; 
 }
 
-.card-actions {
+.info-block { margin-top: 18px; }
+
+.info-block small {
+  font-size: 0.65rem;
+  color: var(--text-sub);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.date-text {
+  color: var(--canva-purple);
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+/* Action Buttons */
+.card-actions-row {
   display: flex;
   gap: 10px;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #ebedf0;
+  margin-top: auto;
+  padding-top: 24px;
 }
 
-.card-actions button {
+.btn-action {
   flex: 1;
+  padding: 12px;
   border: none;
-  padding: 10px;
-  border-radius: 6px;
-  font-weight: 600;
+  border-radius: 10px;
+  font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: 0.2s;
 }
 
-.card-actions button:hover { opacity: 0.8; }
+.t-btn { background: var(--canva-light-purple); color: var(--canva-purple); }
+.c-btn { background: var(--canva-purple); color: white; }
+.d-btn { background: #fee2e2; color: var(--danger); }
 
-.btn-time { background: #e4e6eb; color: #050505; }
-.btn-done { background: #31a24c; color: #ffffff; }
-.btn-delete { background: #f02849; color: #ffffff; }
+.btn-action:hover { filter: brightness(0.9); }
 
-.logout-btn {
-  background: #f02849;
+/* Logout */
+.logout-pill {
+  background: var(--text-main);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 10px 24px;
+  border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
 }
