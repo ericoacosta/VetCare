@@ -88,3 +88,39 @@ input, select {
 table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
 th { background: #f8f9fa; color: #6c5ce7; padding: 12px; text-align: left; }
 td { padding: 12px; border-bottom: 1px solid #eee; }
+.login-container {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-container h2 {
+  color: #7d2ae8; /* Canva Purple */
+  margin-bottom: 30px;
+  font-weight: 800;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box; /* Prevents input from sticking out */
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: #7d2ae8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
