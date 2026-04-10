@@ -1,78 +1,99 @@
-/* Dashboard.css - Canva Style */
-:root {
-  --primary: #6366f1;
-  --bg: #f8fafc;
-  --text: #1e293b;
-}
-
-.dashboard-wrapper {
-  display: flex;
+/* Dashboard.css - Canva Inspired */
+.dashboard-container {
+  padding: 40px 20px;
+  background-color: #f0f2f5;
   min-height: 100vh;
-  background: var(--bg);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.dashboard-sidebar {
-  width: 240px;
-  background: white;
-  padding: 30px;
+.dash-header {
+  max-width: 1100px;
+  margin: 0 auto 40px;
   display: flex;
-  flex-direction: column;
-  border-right: 1px solid #e2e8f0;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 40px; }
+.dash-header h1 { font-weight: 700; color: #1c1e21; margin: 0; }
 
-.dashboard-main { flex: 1; padding: 40px; }
-
-header h1 { font-size: 1.8rem; margin: 0; color: var(--text); }
-header p { color: #64748b; margin: 5px 0 30px; }
-
-.canva-grid {
+.card-grid {
+  max-width: 1100px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 25px;
+  gap: 24px;
 }
 
-.canva-card {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid #f1f5f9;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+.booking-card {
+  background: #ffffff;
+  border-radius: 12px;
   padding: 24px;
-  transition: 0.3s;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e4e6eb;
+  transition: transform 0.2s ease;
 }
 
-.canva-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-.canva-card.is-done { opacity: 0.7; background: #f1f5f9; }
+.booking-card:hover { transform: translateY(-4px); }
 
-.card-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
 
 .status-badge {
-  background: #e0e7ff; color: #4338ca;
-  padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 700;
+  background: #e7f3ff;
+  color: #1877f2;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.info-group { margin-top: 15px; }
-.info-group label { font-size: 0.65rem; color: #94a3b8; font-weight: 800; letter-spacing: 0.05em; }
-.info-value { font-size: 0.95rem; color: var(--text); font-weight: 500; }
-.date-text { color: var(--primary); font-weight: 700; }
+.card-info h3 { margin: 0 0 8px; color: #050505; font-size: 1.25rem; }
+.card-info p { margin: 4px 0; color: #65676b; font-size: 0.9rem; }
 
-.card-footer-actions {
-  display: flex; gap: 8px; margin-top: 25px;
-  border-top: 1px solid #f1f5f9; padding-top: 20px;
+.date-section {
+  margin-top: 15px;
+  padding: 12px;
+  background: #f7f8fa;
+  border-radius: 8px;
+  color: #1c1e21;
+  font-weight: 600;
 }
 
-.btn-action {
-  flex: 1; padding: 10px; border: none; border-radius: 8px;
-  font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #ebedf0;
 }
 
-.time { background: #f1f5f9; color: #475569; }
-.done { background: #dcfce7; color: #166534; }
-.del { background: #fee2e2; color: #991b1b; }
+.card-actions button {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.card-actions button:hover { opacity: 0.8; }
+
+.btn-time { background: #e4e6eb; color: #050505; }
+.btn-done { background: #31a24c; color: #ffffff; }
+.btn-delete { background: #f02849; color: #ffffff; }
 
 .logout-btn {
-  margin-top: auto; padding: 12px; background: #fee2e2; color: #991b1b;
-  border: none; border-radius: 8px; cursor: pointer; font-weight: 600;
+  background: #f02849;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
 }
