@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [session, setSession] = useState(null);
+  const [, setSession] = useState(null);
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
