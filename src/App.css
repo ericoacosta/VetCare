@@ -1,6 +1,6 @@
 /* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-/* 1. Global Reset & Background */
 .App {
   margin: 0;
   padding: 0;
@@ -8,87 +8,83 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); /* Soft Pastel Gradient */
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
-/* 2. Glassmorphism Card Container */
-.App-header {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px); /* This creates the frosted glass effect */
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  text-align: center;
-}
-
-/* 3. Typography */
-h1 {
-  color: #4a4a4a;
-  margin-bottom: 30px;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-label {
-  display: block;
-  text-align: left;
-  margin: 15px 0 5px 5px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* 4. Form & Inputs */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-input, select {
-  padding: 12px 15px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  outline: none;
-}
-
-input:focus, select:focus {
-  border-color: #a8edea;
-  box-shadow: 0 0 8px rgba(168, 237, 234, 0.5);
-  transform: translateY(-2px);
-}
-
-/* 5. The "Confirm" Button */
-button {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  border: none;
+.corner-login-btn {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+  padding: 10px 20px;
   background: #6c5ce7;
   color: white;
-  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
 }
 
-button:hover {
-  background: #5849c4;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+.App-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0; /* Gives space for the long form */
 }
 
-button:active {
-  transform: translateY(0);
+.glass-card, .dashboard-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 30px 40px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
 }
+
+.dashboard-view .dashboard-card { max-width: 950px; }
+
+.input-group { text-align: left; margin-bottom: 12px; }
+
+label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: white;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  background: #6c5ce7;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.logout-btn { background: #ff7675; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; }
+
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th { background: #f8f9fa; color: #6c5ce7; padding: 12px; text-align: left; }
+td { padding: 12px; border-bottom: 1px solid #eee; }
