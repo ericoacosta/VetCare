@@ -35,7 +35,7 @@
 
 .brand span { color: var(--canva-purple); }
 
-/* Grid Layout */
+/* The Grid System - Fixes vertical stacking */
 .canva-grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -66,25 +66,39 @@
   background-color: #fafafa;
 }
 
-/* Status Labels */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
 .status-label {
-  align-self: flex-start;
   padding: 6px 14px;
   border-radius: 8px;
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 20px;
 }
 
 .pending { background: #fff4e5; color: #b45309; }
 .completed { background: #e6fffa; color: #087f60; }
 
-/* Content */
+.pet-emoji { font-size: 1.5rem; }
+
 .pet-name { 
   font-size: 1.4rem; 
   margin: 0; 
   font-weight: 700; 
+}
+
+.meta-tag {
+  background: var(--canva-gray);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  margin-top: 5px;
 }
 
 .info-block { margin-top: 18px; }
@@ -110,6 +124,7 @@
   gap: 10px;
   margin-top: auto;
   padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
 }
 
 .btn-action {
@@ -127,9 +142,6 @@
 .c-btn { background: var(--canva-purple); color: white; }
 .d-btn { background: #fee2e2; color: var(--danger); }
 
-.btn-action:hover { filter: brightness(0.9); }
-
-/* Logout */
 .logout-pill {
   background: var(--text-main);
   color: white;
