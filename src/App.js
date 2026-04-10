@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [, setSession] = useState(null); // Fixed the unused variable error
+  const [, setSession] = useState(null); 
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
@@ -56,17 +56,28 @@ function App() {
     } catch (err) { alert(err.message); }
   };
 
+  // We define the background style here so it bypasses the CSS module check
+  const backgroundStyle = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/image/vetbackground.jpg')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  };
+
   return (
     <div className="App">
       {view === "booking" && (
-        <button className="corner-login-btn" 
-                style={{position: 'absolute', top: '20px', right: '20px', padding: '10px 20px', borderRadius: '50px', border: 'none', fontWeight: 'bold', cursor: 'pointer'}} 
-                onClick={() => setView("login")}>
+        <button className="corner-login-btn" onClick={() => setView("login")}>
           Staff Portal
         </button>
       )}
       
-      <div className="App-header">
+      <div style={backgroundStyle}>
         {view === "login" && (
           <div className="glass-card">
             <h2>Staff Login</h2>
@@ -74,7 +85,7 @@ function App() {
               <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
               <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
               <button type="submit" className="primary-btn">Sign In</button>
-              <button type="button" style={{background: 'none', border: 'none', marginTop: '10px', cursor: 'pointer', textDecoration: 'underline'}} onClick={() => setView("booking")}>Cancel</button>
+              <button type="button" className="admin-link-btn" onClick={() => setView("booking")}>Cancel</button>
             </form>
           </div>
         )}
@@ -87,7 +98,6 @@ function App() {
             <form onSubmit={saveReservation}>
               <input placeholder="Owner Name" value={formData.ownerName} onChange={(e) => setFormData({...formData, ownerName: e.target.value})} required />
               <input placeholder="Phone Number" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
-              {/* ADDRESS FIELD RESTORED */}
               <input placeholder="Home Address" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} required />
               <input placeholder="Pet Name" value={formData.petName} onChange={(e) => setFormData({...formData, petName: e.target.value})} required />
               <select value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})}>
