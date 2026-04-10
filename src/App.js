@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [, setSession] = useState(null); // Fixed unused var error
+  const [, setSession] = useState(null); // Fixed: Removed unused 'session' variable to allow build
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
@@ -81,6 +81,7 @@ function App() {
             <form onSubmit={saveReservation}>
               <input placeholder="Owner Name" value={formData.ownerName} onChange={(e) => setFormData({...formData, ownerName: e.target.value})} required />
               <input placeholder="Phone Number" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
+              {/* ADDRESS INPUT RESTORED */}
               <input placeholder="Home Address" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} required />
               <input placeholder="Pet Name" value={formData.petName} onChange={(e) => setFormData({...formData, petName: e.target.value})} required />
               <select value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})}>
