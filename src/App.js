@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
-import Dashboard from "./Dashboard"; // Linking your new file
+import Dashboard from "./Dashboard"; 
 import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [, setSession] = useState(null);
+  const [, setSession] = useState(null); // Fixed unused var error
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
@@ -34,11 +34,23 @@ function App() {
   const saveReservation = async (e) => {
     e.preventDefault();
     try {
-      const { data: oData, error: oErr } = await supabase.from('owners').insert([{ owner_name: formData.ownerName, contact_no: formData.contactNo, address: formData.address }]).select();
+      const { data: oData, error: oErr } = await supabase.from('owners').insert([{ 
+        owner_name: formData.ownerName, 
+        contact_no: formData.contactNo, 
+        address: formData.address 
+      }]).select();
       if (oErr) throw oErr;
-      const { data: pData, error: pErr } = await supabase.from('pets').insert([{ owner_id: oData[0].id, pet_name: formData.petName, size: formData.size }]).select();
+      const { data: pData, error: pErr } = await supabase.from('pets').insert([{ 
+        owner_id: oData[0].id, 
+        pet_name: formData.petName, 
+        size: formData.size 
+      }]).select();
       if (pErr) throw pErr;
-      await supabase.from('reservations').insert([{ pet_id: pData[0].id, appointment_date: formData.date, status: 'Pending' }]);
+      await supabase.from('reservations').insert([{ 
+        pet_id: pData[0].id, 
+        appointment_date: formData.date, 
+        status: 'Pending' 
+      }]);
       alert("Reservation Saved!");
       setFormData({ ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: "" });
     } catch (err) { alert(err.message); }
@@ -68,12 +80,13 @@ function App() {
             <h1>PawCare Booking</h1>
             <form onSubmit={saveReservation}>
               <input placeholder="Owner Name" value={formData.ownerName} onChange={(e) => setFormData({...formData, ownerName: e.target.value})} required />
-              <input placeholder="Phone" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
+              <input placeholder="Phone Number" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
+              <input placeholder="Home Address" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} required />
               <input placeholder="Pet Name" value={formData.petName} onChange={(e) => setFormData({...formData, petName: e.target.value})} required />
               <select value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})}>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
+                <option value="small">Small Breed</option>
+                <option value="medium">Medium Breed</option>
+                <option value="large">Large Breed</option>
               </select>
               <input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} required />
               <button type="submit" className="primary-btn">Confirm Booking</button>
