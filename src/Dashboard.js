@@ -9,7 +9,7 @@ export default function Dashboard({ handleLogout }) {
     const { data, error } = await supabase
       .from('owners')
       .select(`
-        id, owner_name, contact_no, 
+        id, owner_name, contact_no, address,
         pets ( id, pet_name, size, 
           reservations (id, appointment_date, status)
         )
@@ -21,16 +21,25 @@ export default function Dashboard({ handleLogout }) {
     fetchReservations();
   }, []);
 
-  const handleAction = async (type, resId) => {
-    if (!resId) return;
-    if (type === 'delete' && window.confirm("Delete this appointment?")) {
-      await supabase.from('reservations').delete().eq('id', resId);
-    } else if (type === 'complete') {
+  const handleAction = async (type, resId, ownerId) => {
+    if (type === 'delete' && window.confirm("Delete this entire record and appointment?")) {
+      // Deleting the owner removes the entire card from your dashboard
+      const { error } = await supabase.from('owners').delete().eq('id', ownerId);
+      if (error) alert("Delete Error: " + error.message);
+    } 
+    
+    else if (type === 'complete') {
       await supabase.from('reservations').update({ status: 'Completed' }).eq('id', resId);
-    } else if (type === 'time') {
+    } 
+    
+    else if (type === 'time') {
       const newDate = prompt("Enter new date (YYYY-MM-DD):");
-      if (newDate) await supabase.from('reservations').update({ appointment_date: newDate }).eq('id', resId);
+      if (newDate) {
+        await supabase.from('reservations').update({ appointment_date: newDate }).eq('id', resId);
+      }
     }
+    
+    // Refresh the list after any action
     fetchReservations();
   };
 
@@ -66,14 +75,16 @@ export default function Dashboard({ handleLogout }) {
 
                 <div className="info-block">
                   <small>OWNER DETAILS</small>
-                  <p>{owner.owner_name} • {owner.contact_no}</p>
+                  <p><strong>{owner.owner_name}</strong></p>
+                  <p>{owner.contact_no}</p>
+                  <p style={{fontSize: '0.8rem', color: '#666'}}>{owner.address}</p>
                 </div>
               </div>
 
               <div className="card-actions-row">
-                <button className="btn-action t-btn" onClick={() => handleAction('time', res.id)}>Time</button>
-                <button className="btn-action c-btn" onClick={() => handleAction('complete', res.id)}>Done</button>
-                <button className="btn-action d-btn" onClick={() => handleAction('delete', res.id)}>Delete</button>
+                <button className="btn-action t-btn" onClick={() => handleAction('time', res.id, owner.id)}>Time</button>
+                <button className="btn-action c-btn" onClick={() => handleAction('complete', res.id, owner.id)}>Done</button>
+                <button className="btn-action d-btn" onClick={() => handleAction('delete', res.id, owner.id)}>Delete</button>
               </div>
             </div>
           );
