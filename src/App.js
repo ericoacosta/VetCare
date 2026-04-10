@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [, setSession] = useState(null); // Fixed: Removed unused 'session' variable to allow build
+  const [, setSession] = useState(null); 
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
@@ -23,7 +23,7 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) alert("Login Failed: " + error.message);
+    if (error) alert("Login Failed");
   };
 
   const handleLogout = async () => {
@@ -34,24 +34,12 @@ function App() {
   const saveReservation = async (e) => {
     e.preventDefault();
     try {
-      const { data: oData, error: oErr } = await supabase.from('owners').insert([{ 
-        owner_name: formData.ownerName, 
-        contact_no: formData.contactNo, 
-        address: formData.address 
-      }]).select();
+      const { data: oData, error: oErr } = await supabase.from('owners').insert([{ owner_name: formData.ownerName, contact_no: formData.contactNo, address: formData.address }]).select();
       if (oErr) throw oErr;
-      const { data: pData, error: pErr } = await supabase.from('pets').insert([{ 
-        owner_id: oData[0].id, 
-        pet_name: formData.petName, 
-        size: formData.size 
-      }]).select();
+      const { data: pData, error: pErr } = await supabase.from('pets').insert([{ owner_id: oData[0].id, pet_name: formData.petName, size: formData.size }]).select();
       if (pErr) throw pErr;
-      await supabase.from('reservations').insert([{ 
-        pet_id: pData[0].id, 
-        appointment_date: formData.date, 
-        status: 'Pending' 
-      }]);
-      alert("Reservation Saved!");
+      await supabase.from('reservations').insert([{ pet_id: pData[0].id, appointment_date: formData.date, status: 'Pending' }]);
+      alert("Booking Confirmed!");
       setFormData({ ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: "" });
     } catch (err) { alert(err.message); }
   };
@@ -63,12 +51,12 @@ function App() {
       <div className="App-header">
         {view === "login" && (
           <div className="glass-card">
-            <h2>Staff Sign-In</h2>
+            <h2>Staff Login</h2>
             <form onSubmit={handleLogin}>
               <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
               <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
               <button type="submit" className="primary-btn">Sign In</button>
-              <button type="button" className="admin-link-btn" onClick={() => setView("booking")}>Cancel</button>
+              <button type="button" onClick={() => setView("booking")}>Cancel</button>
             </form>
           </div>
         )}
@@ -81,16 +69,15 @@ function App() {
             <form onSubmit={saveReservation}>
               <input placeholder="Owner Name" value={formData.ownerName} onChange={(e) => setFormData({...formData, ownerName: e.target.value})} required />
               <input placeholder="Phone Number" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
-              {/* ADDRESS INPUT RESTORED */}
               <input placeholder="Home Address" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} required />
               <input placeholder="Pet Name" value={formData.petName} onChange={(e) => setFormData({...formData, petName: e.target.value})} required />
               <select value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})}>
-                <option value="small">Small Breed</option>
-                <option value="medium">Medium Breed</option>
-                <option value="large">Large Breed</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
               </select>
               <input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} required />
-              <button type="submit" className="primary-btn">Confirm Booking</button>
+              <button type="submit" className="primary-btn">Book Now</button>
             </form>
           </div>
         )}
