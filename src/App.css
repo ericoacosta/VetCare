@@ -1,126 +1,61 @@
-/* App.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-.App {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  font-family: 'Poppins', sans-serif;
-  position: relative;
-}
-
-.corner-login-btn {
-  position: fixed !important;
-  top: 20px !important;
-  right: 20px !important;
-  z-index: 9999 !important;
-  padding: 10px 20px;
-  background: #6c5ce7;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 .App-header {
-  width: 100%;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 50px 0; /* Gives space for the long form */
+  /* Points to public/image/bg.jpg */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                    url('/image/vetbackground.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-.glass-card, .dashboard-card {
-  background: rgba(255, 255, 255, 0.75);
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(15px);
-  border-radius: 20px;
-  padding: 30px 40px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 420px;
   text-align: center;
-}
-
-.dashboard-view .dashboard-card { max-width: 950px; }
-
-.input-group { text-align: left; margin-bottom: 12px; }
-
-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #888;
-  text-transform: uppercase;
-  margin-bottom: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 input, select {
   width: 100%;
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: white;
-  font-size: 0.95rem;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
   box-sizing: border-box;
 }
 
 .primary-btn {
   width: 100%;
-  padding: 14px;
-  background: #6c5ce7;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.logout-btn { background: #ff7675; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; }
-
-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
-th { background: #f8f9fa; color: #6c5ce7; padding: 12px; text-align: left; }
-td { padding: 12px; border-bottom: 1px solid #eee; }
-.login-container {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.login-container h2 {
-  color: #7d2ae8; /* Canva Purple */
-  margin-bottom: 30px;
-  font-weight: 800;
-}
-
-.login-container input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-sizing: border-box; /* Prevents input from sticking out */
-}
-
-.login-container button {
-  width: 100%;
-  padding: 12px;
+  padding: 16px;
   background: #7d2ae8;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
+}
+
+.corner-login-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 10;
 }
