@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [view, setView] = useState("booking"); 
-  const [, setSession] = useState(null); 
+  const [, setSession] = useState(null); // The comma here solves the build error
   const [formData, setFormData] = useState({
     ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: ""
   });
@@ -34,11 +34,23 @@ function App() {
   const saveReservation = async (e) => {
     e.preventDefault();
     try {
-      const { data: oData, error: oErr } = await supabase.from('owners').insert([{ owner_name: formData.ownerName, contact_no: formData.contactNo, address: formData.address }]).select();
+      const { data: oData, error: oErr } = await supabase.from('owners').insert([{ 
+        owner_name: formData.ownerName, 
+        contact_no: formData.contactNo, 
+        address: formData.address 
+      }]).select();
       if (oErr) throw oErr;
-      const { data: pData, error: pErr } = await supabase.from('pets').insert([{ owner_id: oData[0].id, pet_name: formData.petName, size: formData.size }]).select();
+      const { data: pData, error: pErr } = await supabase.from('pets').insert([{ 
+        owner_id: oData[0].id, 
+        pet_name: formData.petName, 
+        size: formData.size 
+      }]).select();
       if (pErr) throw pErr;
-      await supabase.from('reservations').insert([{ pet_id: pData[0].id, appointment_date: formData.date, status: 'Pending' }]);
+      await supabase.from('reservations').insert([{ 
+        pet_id: pData[0].id, 
+        appointment_date: formData.date, 
+        status: 'Pending' 
+      }]);
       alert("Booking Confirmed!");
       setFormData({ ownerName: "", contactNo: "", petName: "", size: "small", address: "", date: "" });
     } catch (err) { alert(err.message); }
@@ -47,7 +59,6 @@ function App() {
   return (
     <div className="App">
       {view === "booking" && <button className="corner-login-btn" onClick={() => setView("login")}>Staff Portal</button>}
-      
       <div className="App-header">
         {view === "login" && (
           <div className="glass-card">
@@ -56,19 +67,18 @@ function App() {
               <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
               <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
               <button type="submit" className="primary-btn">Sign In</button>
-              <button type="button" onClick={() => setView("booking")}>Cancel</button>
+              <button type="button" className="admin-link-btn" onClick={() => setView("booking")}>Cancel</button>
             </form>
           </div>
         )}
-
         {view === "dashboard" && <Dashboard handleLogout={handleLogout} />}
-
         {view === "booking" && (
           <div className="glass-card">
             <h1>PawCare Booking</h1>
             <form onSubmit={saveReservation}>
               <input placeholder="Owner Name" value={formData.ownerName} onChange={(e) => setFormData({...formData, ownerName: e.target.value})} required />
               <input placeholder="Phone Number" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
+              {/* ADDRESS FIELD RESTORED */}
               <input placeholder="Home Address" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} required />
               <input placeholder="Pet Name" value={formData.petName} onChange={(e) => setFormData({...formData, petName: e.target.value})} required />
               <select value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})}>
