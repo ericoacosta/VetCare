@@ -94,7 +94,7 @@ function App() {
 
         {view === "booking" && (
           <div className="glass-card">
-            <h1>PawCare Booking</h1>
+            <h1>VetCare Booking</h1>
             <form onSubmit={saveReservation}>
               <input placeholder="Owner Name" value={formData.ownerName} onChange={(e) => setFormData({...formData, ownerName: e.target.value})} required />
               <input placeholder="Phone Number" value={formData.contactNo} onChange={(e) => setFormData({...formData, contactNo: e.target.value})} required />
